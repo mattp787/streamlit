@@ -10,6 +10,8 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
+
+
 st.title('Uber pickups in NYC')
 
 DATE_COLUMN = 'date/time'
@@ -27,17 +29,17 @@ SELECT
     Id
 FROM `polynomial-sum-294418.dbt_matt.my_first_dbt_model`
 """
-
-dataframe = (
-    bqclient.query(query_string)
-    .result()
-    .to_dataframe(
-        # Optionally, explicitly request to use the BigQuery Storage API. As of
-        # google-cloud-bigquery version 1.26.0 and above, the BigQuery Storage
-        # API is used by default.
-        create_bqstorage_client=True,
-    )
-)
+dataframe = pd.read_gbq(query_string, credentials=credentials)
+# dataframe = (
+#     bqclient.query(query_string)
+#     .result()
+#     .to_dataframe(
+#         # Optionally, explicitly request to use the BigQuery Storage API. As of
+#         # google-cloud-bigquery version 1.26.0 and above, the BigQuery Storage
+#         # API is used by default.
+#         create_bqstorage_client=True,
+#     )
+# )
 
 
 
