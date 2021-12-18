@@ -9,9 +9,9 @@ DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
 
 
-from google.cloud import bigquery
+import google.cloud.bigquery
 
-bqclient = bigquery.Client()
+bqclient = bigquery.cloud.Client()
 
 # Download query results.
 query_string = """
