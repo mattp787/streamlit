@@ -11,7 +11,7 @@ DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
 
 import google.cloud.bigquery
 
-bqclient = bigquery.cloud.Client()
+bqclient = google.cloud.bigquery.Client()
 
 # Download query results.
 query_string = """
