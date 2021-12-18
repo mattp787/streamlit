@@ -4,6 +4,12 @@ import numpy as np
 
 import google.cloud.bigquery
 
+from google.oauth2 import service_account
+
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+
 st.title('Uber pickups in NYC')
 
 DATE_COLUMN = 'date/time'
