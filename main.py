@@ -8,6 +8,31 @@ DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
 
+
+from google.cloud import bigquery
+
+bqclient = bigquery.Client()
+
+# Download query results.
+query_string = """
+SELECT
+    Id
+FROM `polynomial-sum-294418.dbt_matt.my_first_dbt_model`
+"""
+
+dataframe = (
+    bqclient.query(query_string)
+    .result()
+    .to_dataframe(
+        # Optionally, explicitly request to use the BigQuery Storage API. As of
+        # google-cloud-bigquery version 1.26.0 and above, the BigQuery Storage
+        # API is used by default.
+        create_bqstorage_client=True,
+    )
+)
+
+
+
 @st.cache
 def load_data(nrows):
     data = pd.read_csv(DATA_URL, nrows=nrows)
@@ -34,3 +59,5 @@ filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
 st.subheader('Map of all pickups at %s:00' % hour_to_filter)
 st.map(filtered_data)
+
+st.write(dataframe)
