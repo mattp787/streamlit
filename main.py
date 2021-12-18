@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-import google.cloud.bigquery
+# import google.cloud.bigquery
 
 from google.oauth2 import service_account
 
@@ -21,7 +21,7 @@ DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
 
 
 
-bqclient = google.cloud.bigquery.Client()
+# bqclient = google.cloud.bigquery.Client()
 
 # Download query results.
 query_string = """
